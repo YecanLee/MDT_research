@@ -146,12 +146,22 @@ echo $MODEL_PATH
 python evaluations/evaluator.py ../dataeval/VIRTUAL_imagenet256_labeled.npz $OPENAI_LOGDIR/samples_50000x256x256x3.npz
 ```
 
+# Evaluation by running the evaluator.py
+The commands use two positional flags, the `FIRST.npz` would be the sampled `.npz` folder from the real dataset like Imagenet, the `SECOND.npz` would be the generated images `.npz` folder, 
+python evaluator.py VIRTUAL_imagenet256_labeled.npz admnet_guided_upsampled_imagenet256.npz
+
 </details>
 
-# Visualization
+# Generating images for evaluation.
 
 Run the `infer_mdt.py` to generate images.
 
+# To evaluate the FID score based on our own needs, please follow the following commands one by one.
+Run `infer_mdt.py` file to generate the generated images folder,  it should be a modified version instead of storing all generated images into an imagesheet. \
+Run the `python evaluator.py FIRST.npz SECOND.npz` to calculate the FID score based on this repo, \
+Run the following commands to calculate the FID score by using the `fid-flaws` repo. \
+`cd ../fid-flaws`  \
+`python -m dgm_eval /personal_storage/scout/fid-flaws/data/ILSVRC2012_img_uni  /personal_storage/scout/fid-flaws/data/gen_img_ldm_ori/ --model dinov2 --metrics fd`
 # Citation
 
 ```
