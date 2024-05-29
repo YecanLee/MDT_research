@@ -16,7 +16,7 @@ def main():
     torch.set_grad_enabled(False)
     device = "cuda" if torch.cuda.is_available() else "cpu"
     num_sampling_steps = 250
-    cfg_scale = 4.0
+    cfg_scale = 0.0
     pow_scale = 0.01 # large pow_scale increase the diversity, small pow_scale increase the quality.
     model_path = 'mdt_xl2_v2_ckpt.pt'
 
