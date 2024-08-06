@@ -39,6 +39,12 @@ ckpt_model_path = os.path.join(models_path, "mdt_xl2_v1_ckpt.pt")
 A hugglingface demo is on [DEMO](https://huggingface.co/spaces/shgao/MDT).
 
 **NEW SOTA on FID.**
+
+# TL;DR, Generate 50k images with one line of command:
+```shell
+bash generation.bash
+```
+
 # Setup
 
 Prepare the Pytorch >=2.0 version. Download and install this repo.
@@ -46,6 +52,9 @@ Prepare the Pytorch >=2.0 version. Download and install this repo.
 ```
 git clone https://github.com/sail-sg/MDT
 cd MDT
+conda create -n MDT python==3.10
+conda activate MDT
+pip install -r requirements.txt
 pip install -e .
 ```
 Install [Adan optimizer](https://github.com/sail-sg/Adan), Adan is a strong optimizer with faster convergence speed than AdamW. [(paper)](https://arxiv.org/abs/2208.06677)
@@ -153,11 +162,13 @@ python evaluator.py VIRTUAL_imagenet256_labeled.npz admnet_guided_upsampled_imag
 </details>
 
 # Generating images for evaluation.
-
-Run the `infer_mdt.py` to generate images.
+Run the following command to generate 50k images with 50 images for each class:
+```shell
+python generation_single_gpu.py --tf32 # use tf32 flag to make the generation process faster
+```
 
 # To evaluate the FID score based on our own needs, please follow the following commands one by one.
-Run `infer_mdt.py` file to generate the generated images folder,  it should be a modified version instead of storing all generated images into an imagesheet. \
+Run command in last section to generate the generated images folder,  it should be a modified version instead of storing all generated images into an imagesheet. \
 Run the `python evaluator.py FIRST.npz SECOND.npz` to calculate the FID score based on this repo, \
 Run the following commands to calculate the FID score by using the `fid-flaws` repo. \
 `cd ../fid-flaws`  \
